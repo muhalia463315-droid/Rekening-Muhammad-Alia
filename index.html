@@ -359,7 +359,7 @@
             <div class="profile-container">
                 <div class="driver-avatar">MA</div>
                 <div class="driver-text">
-                    <div class="driver-name">Grab Driver Muhamad Alia</div>
+                    <div class="driver-name">Grab Driver Muhammad Alia</div>
                     <div class="service-type">Pembayaran QR & Transfer</div>
                 </div>
             </div>
@@ -377,7 +377,7 @@
             </div>
 
             <div class="qr-wrapper">
-                <img src="1790537053421.jpg" alt="QRIS Muhamad Alia" class="qr-image">
+                <img src="1790537053421.jpg" alt="QRIS Muhammad Alia" class="qr-image">
             </div>
 
             <!-- Daftar Bank -->
@@ -396,7 +396,7 @@
                         <div class="bank-info">
                             <span class="bank-title seabank-title">SeaBank</span>
                             <span class="account-number" id="acc-seabank">901213088280</span>
-                            <span class="account-holder">Muhamad Alia</span>
+                            <span class="account-holder">Muhammad Alia</span>
                         </div>
                     </div>
                     <button class="copy-btn seabank-btn" onclick="copyAccount('acc-seabank', 'SeaBank')">Salin</button>
@@ -413,7 +413,7 @@
                         <div class="bank-info">
                             <span class="bank-title cimb-title">CIMB Niaga</span>
                             <span class="account-number" id="acc-cimb">704992338000</span>
-                            <span class="account-holder">Muhamad Alia</span>
+                            <span class="account-holder">Muhammad Alia</span>
                         </div>
                     </div>
                     <button class="copy-btn cimb-btn" onclick="copyAccount('acc-cimb', 'CIMB Niaga')">Salin</button>
@@ -461,22 +461,46 @@
         }
 
         // FUNGSI BAGIKAN KE WHATSAPP, BLUETOOTH, DLL
-        function shareCard() {
-            const shareData = {
-                title: 'Pembayaran QRIS & Rekening Grab Driver',
-                text: `Pembayaran Grab Driver Muhamad Alia:\n\n- SeaBank: 901213088280\n- CIMB Niaga: 704992338000\n\na/n Muhamad Alia`,
-                url: window.location.href
-            };
+        async function shareCard() {
+            const shareText = `Pembayaran Grab Driver Muhammad Alia:\n\n` +
+                              `• SeaBank: 901213088280\n` +
+                              `• CIMB Niaga: 704992338000\n` +
+                              `a/n Muhammad Alia`;
 
-            // Cek apakah browser mendukung fitur Web Share API bawaan HP
-            if (navigator.share) {
-                navigator.share(shareData).catch((err) => {
-                    console.log('Batal membagikan:', err);
-                });
-            } else {
-                // Jika dibuka di browser laptop/komputer yang tidak punya menu share bawaan
-                navigator.clipboard.writeText(`${shareData.text}\n\n${shareData.url}`);
-                showToast('Teks pembayaran disalin ke clipboard!');
+            try {
+                // 1. Ambil file gambar QR Code dari server/folder lokal
+                const response = await fetch('1790537053421.jpg');
+                const blob = await response.blob();
+                
+                // 2. Ubah gambar menjadi Objek File
+                const file = new File([blob], 'QRIS_Muhammad_Alia.jpg', { type: blob.type });
+
+                // 3. Cek apakah browser mendukung Web Share API dengan gambar
+                if (navigator.canShare && navigator.canShare({ files: [file] })) {
+                    await navigator.share({
+                        title: 'Pembayaran Grab Driver',
+                        text: shareText,
+                        files: [file]
+                    });
+                } 
+                // 4. Jika hanya mendukung Share Teks
+                else if (navigator.share) {
+                    await navigator.share({
+                        title: 'Pembayaran Grab Driver',
+                        text: shareText,
+                        url: window.location.href
+                    });
+                } 
+                // 5. Cadangan jika di Desktop / Laptop
+                else {
+                    await navigator.clipboard.writeText(`${shareText}\n\n${window.location.href}`);
+                    showToast('Teks pembayaran disalin ke clipboard!');
+                }
+            } catch (error) {
+                if (error.name !== 'AbortError') {
+                    console.error('Gagal membagikan:', error);
+                    showToast('Gagal membagikan tampilan.');
+                }
             }
         }
     </script>
