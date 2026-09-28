@@ -14,6 +14,8 @@
             --text-muted: #64748b;
             --seabank-orange: #ff5722;
             --cimb-red: #780000;
+            --ovo-purple: #4c2a86;
+            --dana-blue: #118eea;
         }
 
         * {
@@ -181,7 +183,7 @@
             display: block;
         }
 
-        /* DAFTAR BANK */
+        /* DAFTAR BANK & E-WALLET */
         .bank-list {
             display: flex;
             flex-direction: column;
@@ -198,31 +200,37 @@
             text-align: left;
         }
 
+        /* SeaBank */
         .seabank-box {
             background-color: #fff6f3;
             border: 1px solid #ffe0d6;
         }
+        .seabank-title { color: var(--seabank-orange); }
+        .seabank-btn { background-color: var(--seabank-orange); }
 
-        .seabank-title {
-            color: var(--seabank-orange);
-        }
-
-        .seabank-btn {
-            background-color: var(--seabank-orange);
-        }
-
+        /* CIMB */
         .cimb-box {
             background-color: #fdf2f2;
             border: 1px solid #f8d7da;
         }
+        .cimb-title { color: var(--cimb-red); }
+        .cimb-btn { background-color: var(--cimb-red); }
 
-        .cimb-title {
-            color: var(--cimb-red);
+        /* OVO */
+        .ovo-box {
+            background-color: #f6f0fa;
+            border: 1px solid #e5d8f6;
         }
+        .ovo-title { color: var(--ovo-purple); }
+        .ovo-btn { background-color: var(--ovo-purple); }
 
-        .cimb-btn {
-            background-color: var(--cimb-red);
+        /* DANA */
+        .dana-box {
+            background-color: #f0f8ff;
+            border: 1px solid #d0e7ff;
         }
+        .dana-title { color: var(--dana-blue); }
+        .dana-btn { background-color: var(--dana-blue); }
 
         .bank-details {
             display: flex;
@@ -380,7 +388,7 @@
                 <img src="1790537053421.jpg" alt="QRIS Muhammad Alia" class="qr-image">
             </div>
 
-            <!-- Daftar Bank -->
+            <!-- Daftar Bank & E-Wallet -->
             <div class="bank-list">
                 
                 <!-- SeaBank -->
@@ -419,6 +427,38 @@
                     <button class="copy-btn cimb-btn" onclick="copyAccount('acc-cimb', 'CIMB Niaga')">Salin</button>
                 </div>
 
+                <!-- OVO -->
+                <div class="bank-box ovo-box">
+                    <div class="bank-details">
+                        <svg class="bank-logo-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" style="border-radius: 6px;">
+                            <rect width="100" height="100" rx="16" fill="#4C2A86"/>
+                            <text x="50" y="62" font-family="Arial, Helvetica, sans-serif" font-weight="900" font-size="32" fill="#FFFFFF" text-anchor="middle">OVO</text>
+                        </svg>
+                        <div class="bank-info">
+                            <span class="bank-title ovo-title">OVO</span>
+                            <span class="account-number" id="acc-ovo">085141347197</span>
+                            <span class="account-holder">Muhammad Alia</span>
+                        </div>
+                    </div>
+                    <button class="copy-btn ovo-btn" onclick="copyAccount('acc-ovo', 'OVO')">Salin</button>
+                </div>
+
+                <!-- DANA -->
+                <div class="bank-box dana-box">
+                    <div class="bank-details">
+                        <svg class="bank-logo-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" style="border-radius: 6px;">
+                            <rect width="100" height="100" rx="16" fill="#118EEA"/>
+                            <text x="50" y="58" font-family="Arial, Helvetica, sans-serif" font-weight="900" font-size="24" fill="#FFFFFF" text-anchor="middle">DANA</text>
+                        </svg>
+                        <div class="bank-info">
+                            <span class="bank-title dana-title">DANA</span>
+                            <span class="account-number" id="acc-dana">085141347197</span>
+                            <span class="account-holder">Muhammad Alia</span>
+                        </div>
+                    </div>
+                    <button class="copy-btn dana-btn" onclick="copyAccount('acc-dana', 'DANA')">Salin</button>
+                </div>
+
             </div>
 
         </div>
@@ -443,7 +483,7 @@
             const accNum = document.getElementById(elementId).innerText;
             
             navigator.clipboard.writeText(accNum).then(() => {
-                showToast(`Rekening ${bankName} (${accNum}) disalin!`);
+                showToast(`Nomor ${bankName} (${accNum}) disalin!`);
             });
         }
 
@@ -465,6 +505,8 @@
             const shareText = `Pembayaran Grab Driver Muhammad Alia:\n\n` +
                               `• SeaBank: 901213088280\n` +
                               `• CIMB Niaga: 704992338000\n` +
+                              `• OVO: 085141347197\n` +
+                              `• DANA: 085141347197\n` +
                               `a/n Muhammad Alia`;
 
             try {
