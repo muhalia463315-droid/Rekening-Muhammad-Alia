@@ -3,19 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Grab Driver QR Code & Rekening</title>
+    <title>Grab Driver QR Code & Rekening - Modern Neon</title>
     <style>
         :root {
-            --primary-green: #00b14f;
-            --primary-dark: #00883d;
-            --background-color: #f4f6f9;
-            --card-background: #ffffff;
-            --text-dark: #1e293b;
-            --text-muted: #64748b;
-            --seabank-orange: #ff5722;
-            --cimb-red: #780000;
-            --ovo-purple: #4c2a86;
-            --dana-blue: #118eea;
+            --bg-dark: #0b0f19;
+            --card-bg: rgba(18, 24, 38, 0.85);
+            --border-glow: #00ff88;
+            --neon-green: #00ff88;
+            --neon-cyan: #00e5ff;
+            --text-main: #f1f5f9;
+            --text-sub: #94a3b8;
+            
+            /* Brand Colors Neon Variant */
+            --seabank-orange: #ff6b35;
+            --cimb-red: #ff2a4b;
+            --ovo-purple: #a855f7;
+            --dana-blue: #00a2ff;
         }
 
         * {
@@ -26,222 +29,227 @@
         }
 
         body {
-            background-color: var(--background-color);
+            background-color: var(--bg-dark);
+            background-image: 
+                radial-gradient(circle at 15% 15%, rgba(0, 255, 136, 0.15) 0%, transparent 40%),
+                radial-gradient(circle at 85% 85%, rgba(0, 229, 255, 0.15) 0%, transparent 40%);
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
             padding: 20px;
-            position: relative;
+            color: var(--text-main);
         }
 
+        /* CARD MAIN CONTAINER WITH NEON BORDER */
         .qr-card {
-            background-color: var(--card-background);
+            background: var(--card-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
             width: 100%;
-            max-width: 360px;
-            border-radius: 24px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+            max-width: 380px;
+            border-radius: 28px;
             overflow: hidden;
-            border: 1px solid rgba(255, 255, 255, 0.8);
-        }
-
-        /* HEADER HIJAU RINGKAS */
-        .card-header {
-            background: linear-gradient(135deg, #00c853 0%, #00883d 100%);
-            padding: 14px 16px;
-            color: white;
-            text-align: center;
+            border: 1px solid rgba(0, 255, 136, 0.3);
+            box-shadow: 
+                0 0 20px rgba(0, 255, 136, 0.2),
+                0 20px 40px rgba(0, 0, 0, 0.6);
             position: relative;
-            box-shadow: inset 0 -10px 20px rgba(0, 0, 0, 0.05);
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
         }
 
-        .card-header::before {
-            content: "";
-            position: absolute;
-            top: -20px;
-            right: -20px;
-            width: 80px;
-            height: 80px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 50%;
-            pointer-events: none;
+        .qr-card:hover {
+            border-color: rgba(0, 255, 136, 0.6);
+            box-shadow: 
+                0 0 30px rgba(0, 255, 136, 0.35),
+                0 20px 40px rgba(0, 0, 0, 0.8);
         }
 
-        .header-nav {
-            display: flex;
-            justify-content: flex-start;
-            align-items: center;
-            margin-bottom: 4px;
-        }
-
-        .nav-icon {
-            font-size: 16px;
-            cursor: pointer;
-            opacity: 0.9;
-            transition: transform 0.2s;
-        }
-
-        .nav-icon:hover {
-            transform: scale(1.15);
+        /* HEADER NEON */
+        .card-header {
+            background: linear-gradient(135deg, rgba(0, 255, 136, 0.1) 0%, rgba(0, 229, 255, 0.05) 100%);
+            padding: 20px 18px 16px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            position: relative;
         }
 
         .profile-container {
             display: flex;
             align-items: center;
-            justify-content: center;
-            gap: 12px;
-            margin-top: -4px;
+            gap: 14px;
         }
 
         .driver-avatar {
-            width: 44px;
-            height: 44px;
-            flex-shrink: 0;
-            background: rgba(255, 255, 255, 0.25);
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
-            color: white;
+            width: 50px;
+            height: 50px;
             border-radius: 50%;
+            background: linear-gradient(135deg, #00ff88, #00e5ff);
+            color: #0b0f19;
             display: flex;
             justify-content: center;
             align-items: center;
-            font-size: 16px;
+            font-size: 1.1rem;
             font-weight: 800;
-            border: 1.5px solid rgba(255, 255, 255, 0.6);
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-        }
-
-        .driver-text {
-            text-align: left;
+            box-shadow: 0 0 15px rgba(0, 255, 136, 0.6);
+            border: 2px solid #ffffff;
+            flex-shrink: 0;
         }
 
         .driver-name {
-            font-size: 0.95rem;
-            font-weight: 800;
-            line-height: 1.2;
-            letter-spacing: 0.2px;
+            font-size: 1.05rem;
+            font-weight: 700;
+            letter-spacing: 0.3px;
         }
 
         .service-type {
-            font-size: 0.7rem;
-            opacity: 0.9;
-            font-weight: 500;
-            background: rgba(0, 0, 0, 0.12);
+            font-size: 0.72rem;
+            color: var(--neon-green);
+            background: rgba(0, 255, 136, 0.1);
+            border: 1px solid rgba(0, 255, 136, 0.3);
             display: inline-block;
-            padding: 2px 8px;
-            border-radius: 12px;
-            margin-top: 3px;
+            padding: 2px 10px;
+            border-radius: 20px;
+            margin-top: 4px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
         /* KONTEN UTAMA */
         .card-content {
-            padding: 16px 20px 10px 20px;
+            padding: 20px;
+        }
+
+        /* TAB NAVIGATION METHOD */
+        .method-tabs {
+            display: flex;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 4px;
+            margin-bottom: 18px;
+            gap: 4px;
+        }
+
+        .tab-btn {
+            flex: 1;
+            padding: 8px 0;
+            border: none;
+            background: transparent;
+            color: var(--text-sub);
+            font-size: 0.8rem;
+            font-weight: 700;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .tab-btn.active {
+            background: var(--neon-green);
+            color: #0b0f19;
+            box-shadow: 0 0 12px rgba(0, 255, 136, 0.5);
+        }
+
+        /* QR SECTION WITH GLOW BORDER */
+        .qr-section {
             text-align: center;
+            margin-bottom: 20px;
         }
 
         .logo-row {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 14px;
+            margin-bottom: 12px;
+            padding: 0 4px;
         }
 
         .qris-text {
-            font-weight: 800;
-            font-size: 1.1rem;
-            color: var(--text-dark);
-            text-align: left;
+            font-weight: 900;
+            font-size: 1.2rem;
+            letter-spacing: 1px;
+            color: #fff;
         }
 
         .qris-sub {
             font-size: 0.65rem;
-            color: var(--text-muted);
+            color: var(--text-sub);
             display: block;
             font-weight: 500;
         }
 
-        .gpn-text {
+        .gpn-badge {
+            background: #e11d48;
+            color: white;
             font-weight: 900;
-            font-size: 1rem;
-            color: #d32f2f;
+            font-size: 0.75rem;
+            padding: 2px 8px;
+            border-radius: 6px;
+            box-shadow: 0 0 10px rgba(225, 29, 72, 0.5);
         }
 
         .qr-wrapper {
-            background-color: #ffffff;
-            padding: 10px;
-            border-radius: 16px;
-            border: 1px solid #e2e8f0;
+            background: #ffffff;
+            padding: 12px;
+            border-radius: 20px;
             display: inline-block;
-            margin-bottom: 14px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+            position: relative;
+            box-shadow: 0 0 25px rgba(0, 229, 255, 0.25);
+            border: 2px solid var(--neon-cyan);
         }
 
         .qr-image {
-            width: 210px;
-            height: auto;
-            border-radius: 8px;
+            width: 200px;
+            height: 200px;
+            border-radius: 12px;
             display: block;
+            object-fit: cover;
         }
 
-        /* DAFTAR BANK & E-WALLET */
+        /* BANK LIST */
         .bank-list {
             display: flex;
             flex-direction: column;
-            gap: 10px;
-            margin-bottom: 14px;
+            gap: 12px;
         }
 
         .bank-box {
-            border-radius: 14px;
-            padding: 10px 14px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 16px;
+            padding: 12px 14px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            text-align: left;
+            transition: all 0.3s ease;
         }
 
-        /* SeaBank */
-        .seabank-box {
-            background-color: #fff6f3;
-            border: 1px solid #ffe0d6;
+        .bank-box:hover {
+            background: rgba(255, 255, 255, 0.06);
+            transform: translateY(-2px);
         }
-        .seabank-title { color: var(--seabank-orange); }
-        .seabank-btn { background-color: var(--seabank-orange); }
-
-        /* CIMB */
-        .cimb-box {
-            background-color: #fdf2f2;
-            border: 1px solid #f8d7da;
-        }
-        .cimb-title { color: var(--cimb-red); }
-        .cimb-btn { background-color: var(--cimb-red); }
-
-        /* OVO */
-        .ovo-box {
-            background-color: #f6f0fa;
-            border: 1px solid #e5d8f6;
-        }
-        .ovo-title { color: var(--ovo-purple); }
-        .ovo-btn { background-color: var(--ovo-purple); }
-
-        /* DANA */
-        .dana-box {
-            background-color: #f0f8ff;
-            border: 1px solid #d0e7ff;
-        }
-        .dana-title { color: var(--dana-blue); }
-        .dana-btn { background-color: var(--dana-blue); }
 
         .bank-details {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
+        }
+
+        .bank-logo-wrapper {
+            width: 38px;
+            height: 38px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 6px;
+            flex-shrink: 0;
         }
 
         .bank-logo-svg {
-            width: 36px;
-            height: 36px;
-            flex-shrink: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
         }
 
         .bank-info {
@@ -250,7 +258,7 @@
         }
 
         .bank-title {
-            font-size: 0.7rem;
+            font-size: 0.72rem;
             font-weight: 700;
             letter-spacing: 0.5px;
             text-transform: uppercase;
@@ -259,19 +267,19 @@
         .account-number {
             font-size: 0.95rem;
             font-weight: 700;
-            color: var(--text-dark);
+            color: #ffffff;
             letter-spacing: 0.5px;
-            margin-top: 1px;
+            margin-top: 2px;
+            font-family: 'Courier New', Courier, monospace;
         }
 
         .account-holder {
-            font-size: 0.7rem;
-            color: var(--text-muted);
-            font-weight: 500;
+            font-size: 0.68rem;
+            color: var(--text-sub);
         }
 
+        /* NEON COPY BUTTONS */
         .copy-btn {
-            color: white;
             border: none;
             padding: 8px 14px;
             border-radius: 10px;
@@ -279,6 +287,34 @@
             font-weight: 700;
             cursor: pointer;
             transition: all 0.2s ease;
+            color: #ffffff;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        /* Specific Neon Styles */
+        .seabank-box { border-color: rgba(255, 107, 53, 0.3); }
+        .seabank-box .bank-title { color: var(--seabank-orange); }
+        .seabank-box:hover { box-shadow: 0 0 15px rgba(255, 107, 53, 0.2); }
+        .seabank-btn { background: var(--seabank-orange); box-shadow: 0 0 10px rgba(255, 107, 53, 0.4); }
+
+        .cimb-box { border-color: rgba(255, 42, 75, 0.3); }
+        .cimb-box .bank-title { color: var(--cimb-red); }
+        .cimb-box:hover { box-shadow: 0 0 15px rgba(255, 42, 75, 0.2); }
+        .cimb-btn { background: var(--cimb-red); box-shadow: 0 0 10px rgba(255, 42, 75, 0.4); }
+
+        .ovo-box { border-color: rgba(168, 85, 247, 0.3); }
+        .ovo-box .bank-title { color: var(--ovo-purple); }
+        .ovo-box:hover { box-shadow: 0 0 15px rgba(168, 85, 247, 0.2); }
+        .ovo-btn { background: var(--ovo-purple); box-shadow: 0 0 10px rgba(168, 85, 247, 0.4); }
+
+        .dana-box { border-color: rgba(0, 162, 255, 0.3); }
+        .dana-box .bank-title { color: var(--dana-blue); }
+        .dana-box:hover { box-shadow: 0 0 15px rgba(0, 162, 255, 0.2); }
+        .dana-btn { background: var(--dana-blue); box-shadow: 0 0 10px rgba(0, 162, 255, 0.4); }
+
+        .copy-btn:hover {
+            transform: scale(1.05);
+            filter: brightness(1.2);
         }
 
         .copy-btn:active {
@@ -287,53 +323,49 @@
 
         /* FOOTER */
         .card-footer {
-            padding: 0 20px 20px 20px;
+            padding: 0 20px 20px;
         }
 
         .action-button {
-            background: linear-gradient(135deg, #00c853 0%, #00883d 100%);
+            background: linear-gradient(135deg, var(--neon-green), var(--neon-cyan));
             border: none;
-            color: white;
-            padding: 12px;
+            color: #0b0f19;
+            padding: 14px;
             border-radius: 14px;
-            font-weight: 700;
+            font-weight: 800;
             font-size: 0.9rem;
             cursor: pointer;
             width: 100%;
-            box-shadow: 0 6px 16px rgba(0, 200, 83, 0.25);
-            transition: all 0.2s ease;
-            letter-spacing: 0.3px;
+            box-shadow: 0 0 20px rgba(0, 255, 136, 0.4);
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
         .action-button:hover {
+            box-shadow: 0 0 30px rgba(0, 255, 136, 0.7);
             transform: translateY(-2px);
-            box-shadow: 0 10px 20px rgba(0, 200, 83, 0.35);
         }
 
-        .action-button:active {
-            transform: translateY(0);
-        }
-
-        /* TOAST NOTIFIKASI */
+        /* TOAST NOTIFICATION */
         .toast-container {
             position: fixed;
             bottom: -80px;
             left: 50%;
             transform: translateX(-50%);
-            background: #1e293b;
-            color: white;
-            padding: 12px 20px;
+            background: rgba(18, 24, 38, 0.95);
+            border: 1px solid var(--neon-green);
+            color: #ffffff;
+            padding: 12px 24px;
             border-radius: 30px;
             display: flex;
             align-items: center;
             gap: 10px;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 0 20px rgba(0, 255, 136, 0.3);
             font-size: 0.85rem;
             font-weight: 600;
             transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
             z-index: 9999;
-            width: max-content;
-            max-width: 90%;
         }
 
         .toast-container.show {
@@ -341,16 +373,8 @@
         }
 
         .toast-icon {
-            background: #00c853;
-            color: white;
-            width: 22px;
-            height: 22px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 12px;
-            font-weight: bold;
+            color: var(--neon-green);
+            font-size: 1rem;
         }
     </style>
 </head>
@@ -360,15 +384,11 @@
         
         <!-- Header -->
         <div class="card-header">
-            <div class="header-nav">
-                <span class="nav-icon">&#10094;</span>
-            </div>
-
             <div class="profile-container">
                 <div class="driver-avatar">MA</div>
                 <div class="driver-text">
-                    <div class="driver-name">Grab Driver Muhammad Alia</div>
-                    <div class="service-type">Pembayaran QR & Transfer</div>
+                    <div class="driver-name">Muhammad Alia</div>
+                    <div class="service-type">Grab Driver Partner</div>
                 </div>
             </div>
         </div>
@@ -376,35 +396,45 @@
         <!-- Konten Utama -->
         <div class="card-content">
             
-            <div class="logo-row">
-                <div class="qris-text">
-                    QRIS
-                    <span class="qris-sub">QR Code Standar Pembayaran Nasional</span>
-                </div>
-                <div class="gpn-text">GPN</div>
+            <!-- Tab Filter Metode Pembayaran -->
+            <div class="method-tabs">
+                <button class="tab-btn active" onclick="switchTab('all')">Semua Opsi</button>
+                <button class="tab-btn" onclick="switchTab('qris')">QRIS Code</button>
+                <button class="tab-btn" onclick="switchTab('transfer')">Transfer Bank</button>
             </div>
 
-            <div class="qr-wrapper">
-                <img src="1790537053421.jpg" alt="QRIS Muhammad Alia" class="qr-image">
+            <!-- Tampilan QRIS -->
+            <div class="qr-section" id="qris-block">
+                <div class="logo-row">
+                    <div class="qris-text">
+                        QRIS
+                        <span class="qris-sub">Standar Pembayaran Nasional</span>
+                    </div>
+                    <div class="gpn-badge">GPN</div>
+                </div>
+
+                <div class="qr-wrapper">
+                    <!-- Pastikan nama file gambar QR disesuaikan jika berubah -->
+                    <img src="1790537053421.jpg" alt="QRIS Muhammad Alia" class="qr-image">
+                </div>
             </div>
 
             <!-- Daftar Bank & E-Wallet -->
-            <div class="bank-list">
+            <div class="bank-list" id="bank-block">
                 
                 <!-- SeaBank -->
                 <div class="bank-box seabank-box">
                     <div class="bank-details">
-                        <svg class="bank-logo-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-                            <circle cx="50" cy="42" r="38" fill="#F05A22"/>
-                            <circle cx="50" cy="42" r="32" fill="none" stroke="#FFFFFF" stroke-width="3"/>
-                            <text x="50" y="55" font-family="Arial, Helvetica, sans-serif" font-weight="900" font-size="40" fill="#FFFFFF" text-anchor="middle">S</text>
-                            <path d="M 12 70 Q 30 58 50 70 T 88 70" fill="none" stroke="#1877F2" stroke-width="8" stroke-linecap="round"/>
-                            <path d="M 20 82 Q 35 72 50 82 T 80 82" fill="none" stroke="#1877F2" stroke-width="7" stroke-linecap="round"/>
-                        </svg>
+                        <div class="bank-logo-wrapper">
+                            <svg class="bank-logo-svg" viewBox="0 0 100 100">
+                                <circle cx="50" cy="50" r="45" fill="#FF6B35"/>
+                                <text x="50" y="68" font-family="Arial" font-weight="900" font-size="55" fill="#FFFFFF" text-anchor="middle">S</text>
+                            </svg>
+                        </div>
                         <div class="bank-info">
-                            <span class="bank-title seabank-title">SeaBank</span>
+                            <span class="bank-title">SeaBank</span>
                             <span class="account-number" id="acc-seabank">901213088280</span>
-                            <span class="account-holder">Muhammad Alia</span>
+                            <span class="account-holder">a/n Muhammad Alia</span>
                         </div>
                     </div>
                     <button class="copy-btn seabank-btn" onclick="copyAccount('acc-seabank', 'SeaBank')">Salin</button>
@@ -413,15 +443,17 @@
                 <!-- CIMB Niaga -->
                 <div class="bank-box cimb-box">
                     <div class="bank-details">
-                        <svg class="bank-logo-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" style="border-radius: 6px;">
-                            <rect width="100" height="100" rx="16" fill="#6B0C1D"/>
-                            <polygon points="22,22 68,22 84,48 38,48" fill="#FFFFFF"/>
-                            <polygon points="38,48 84,48 68,74 22,74" fill="#E30613"/>
-                        </svg>
+                        <div class="bank-logo-wrapper">
+                            <svg class="bank-logo-svg" viewBox="0 0 100 100">
+                                <rect width="100" height="100" rx="20" fill="#780000"/>
+                                <polygon points="20,20 80,20 80,50" fill="#FFFFFF"/>
+                                <polygon points="20,50 80,50 80,80" fill="#FF2A4B"/>
+                            </svg>
+                        </div>
                         <div class="bank-info">
-                            <span class="bank-title cimb-title">CIMB Niaga</span>
+                            <span class="bank-title">CIMB Niaga</span>
                             <span class="account-number" id="acc-cimb">704992338000</span>
-                            <span class="account-holder">Muhammad Alia</span>
+                            <span class="account-holder">a/n Muhammad Alia</span>
                         </div>
                     </div>
                     <button class="copy-btn cimb-btn" onclick="copyAccount('acc-cimb', 'CIMB Niaga')">Salin</button>
@@ -430,14 +462,16 @@
                 <!-- OVO -->
                 <div class="bank-box ovo-box">
                     <div class="bank-details">
-                        <svg class="bank-logo-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" style="border-radius: 6px;">
-                            <rect width="100" height="100" rx="16" fill="#4C2A86"/>
-                            <text x="50" y="62" font-family="Arial, Helvetica, sans-serif" font-weight="900" font-size="32" fill="#FFFFFF" text-anchor="middle">OVO</text>
-                        </svg>
+                        <div class="bank-logo-wrapper">
+                            <svg class="bank-logo-svg" viewBox="0 0 100 100">
+                                <rect width="100" height="100" rx="20" fill="#4C2A86"/>
+                                <text x="50" y="65" font-family="Arial" font-weight="900" font-size="36" fill="#A855F7" text-anchor="middle">OVO</text>
+                            </svg>
+                        </div>
                         <div class="bank-info">
-                            <span class="bank-title ovo-title">OVO</span>
+                            <span class="bank-title">OVO</span>
                             <span class="account-number" id="acc-ovo">085141347197</span>
-                            <span class="account-holder">Muhammad Alia</span>
+                            <span class="account-holder">a/n Muhammad Alia</span>
                         </div>
                     </div>
                     <button class="copy-btn ovo-btn" onclick="copyAccount('acc-ovo', 'OVO')">Salin</button>
@@ -446,14 +480,16 @@
                 <!-- DANA -->
                 <div class="bank-box dana-box">
                     <div class="bank-details">
-                        <svg class="bank-logo-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" style="border-radius: 6px;">
-                            <rect width="100" height="100" rx="16" fill="#118EEA"/>
-                            <text x="50" y="58" font-family="Arial, Helvetica, sans-serif" font-weight="900" font-size="24" fill="#FFFFFF" text-anchor="middle">DANA</text>
-                        </svg>
+                        <div class="bank-logo-wrapper">
+                            <svg class="bank-logo-svg" viewBox="0 0 100 100">
+                                <rect width="100" height="100" rx="20" fill="#118EEA"/>
+                                <text x="50" y="62" font-family="Arial" font-weight="900" font-size="28" fill="#FFFFFF" text-anchor="middle">DANA</text>
+                            </svg>
+                        </div>
                         <div class="bank-info">
-                            <span class="bank-title dana-title">DANA</span>
+                            <span class="bank-title">DANA</span>
                             <span class="account-number" id="acc-dana">085141347197</span>
-                            <span class="account-holder">Muhammad Alia</span>
+                            <span class="account-holder">a/n Muhammad Alia</span>
                         </div>
                     </div>
                     <button class="copy-btn dana-btn" onclick="copyAccount('acc-dana', 'DANA')">Salin</button>
@@ -465,20 +501,21 @@
 
         <!-- Footer -->
         <div class="card-footer">
-            <button class="action-button" onclick="shareCard()">Bagikan Tampilan</button>
+            <button class="action-button" onclick="shareCard()">Bagikan Info Pembayaran</button>
         </div>
 
     </div>
 
-    <!-- ELEMEN TOAST NOTIFIKASI -->
+    <!-- TOAST NOTIFIKASI -->
     <div id="toast" class="toast-container">
-        <span class="toast-icon">&#10004;</span>
-        <span id="toast-message">Nomor rekening disalin!</span>
+        <span class="toast-icon">✓</span>
+        <span id="toast-message">Nomor rekening berhasil disalin!</span>
     </div>
 
     <script>
         let toastTimeout;
 
+        // Fungsi Salin Rekening
         function copyAccount(elementId, bankName) {
             const accNum = document.getElementById(elementId).innerText;
             
@@ -487,6 +524,7 @@
             });
         }
 
+        // Tampilkan Toast
         function showToast(message) {
             const toast = document.getElementById('toast');
             const toastMsg = document.getElementById('toast-message');
@@ -500,7 +538,28 @@
             }, 2500);
         }
 
-        // FUNGSI BAGIKAN TEKS & LINK LENGKAP KE WHATSAPP
+        // Tab Filtering (QRIS / Transfer)
+        function switchTab(type) {
+            const buttons = document.querySelectorAll('.tab-btn');
+            const qrisBlock = document.getElementById('qris-block');
+            const bankBlock = document.getElementById('bank-block');
+
+            buttons.forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+
+            if (type === 'qris') {
+                qrisBlock.style.display = 'block';
+                bankBlock.style.display = 'none';
+            } else if (type === 'transfer') {
+                qrisBlock.style.display = 'none';
+                bankBlock.style.display = 'flex';
+            } else {
+                qrisBlock.style.display = 'block';
+                bankBlock.style.display = 'flex';
+            }
+        }
+
+        // Share Card via WhatsApp/System Share
         async function shareCard() {
             const shareText = `Pembayaran Grab Driver Muhammad Alia:\n\n` +
                               `• SeaBank: 901213088280\n` +
@@ -522,7 +581,6 @@
                 }
             } catch (error) {
                 if (error.name !== 'AbortError') {
-                    console.error('Gagal membagikan:', error);
                     showToast('Gagal membagikan tampilan.');
                 }
             }
