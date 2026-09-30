@@ -187,22 +187,27 @@
             box-shadow: 0 0 10px rgba(225, 29, 72, 0.5);
         }
 
+        /* PERBAIKAN WAPPER & GAMBAR QR */
         .qr-wrapper {
             background: #ffffff;
             padding: 12px;
             border-radius: 20px;
-            display: inline-block;
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
             position: relative;
             box-shadow: 0 0 25px rgba(0, 229, 255, 0.25);
             border: 2px solid var(--neon-cyan);
+            max-width: 100%;
         }
 
         .qr-image {
             width: 200px;
             height: 200px;
+            max-width: 100%;
             border-radius: 12px;
             display: block;
-            object-fit: cover;
+            object-fit: contain;
         }
 
         /* BANK LIST */
@@ -414,7 +419,6 @@
                 </div>
 
                 <div class="qr-wrapper">
-                    <!-- Pastikan nama file gambar QR disesuaikan jika berubah -->
                     <img src="1790537053421.jpg" alt="QRIS Muhammad Alia" class="qr-image">
                 </div>
             </div>
@@ -515,7 +519,6 @@
     <script>
         let toastTimeout;
 
-        // Fungsi Salin Rekening
         function copyAccount(elementId, bankName) {
             const accNum = document.getElementById(elementId).innerText;
             
@@ -524,7 +527,6 @@
             });
         }
 
-        // Tampilkan Toast
         function showToast(message) {
             const toast = document.getElementById('toast');
             const toastMsg = document.getElementById('toast-message');
@@ -538,7 +540,6 @@
             }, 2500);
         }
 
-        // Tab Filtering (QRIS / Transfer)
         function switchTab(type) {
             const buttons = document.querySelectorAll('.tab-btn');
             const qrisBlock = document.getElementById('qris-block');
@@ -559,7 +560,6 @@
             }
         }
 
-        // Share Card via WhatsApp/System Share
         async function shareCard() {
             const shareText = `Pembayaran Grab Driver Muhammad Alia:\n\n` +
                               `• SeaBank: 901213088280\n` +
