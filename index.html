@@ -187,27 +187,29 @@
             box-shadow: 0 0 10px rgba(225, 29, 72, 0.5);
         }
 
-        /* PERBAIKAN WAPPER & GAMBAR QR */
+        /* PERBAIKAN FORM KOTAK QR CODE */
         .qr-wrapper {
             background: #ffffff;
-            padding: 12px;
+            padding: 6px;
             border-radius: 20px;
             display: inline-flex;
             justify-content: center;
             align-items: center;
             position: relative;
-            box-shadow: 0 0 25px rgba(0, 229, 255, 0.25);
+            box-shadow: 0 0 25px rgba(0, 229, 255, 0.3);
             border: 2px solid var(--neon-cyan);
-            max-width: 100%;
+            width: 250px;
+            height: 250px;
+            overflow: hidden;
         }
 
         .qr-image {
-            width: 200px;
-            height: 200px;
-            max-width: 100%;
-            border-radius: 12px;
+            width: 100%;
+            height: 100%;
             display: block;
-            object-fit: contain;
+            object-fit: cover;
+            transform: scale(1.15);
+            border-radius: 14px;
         }
 
         /* BANK LIST */
