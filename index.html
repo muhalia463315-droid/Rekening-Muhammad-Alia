@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Grab Driver QR Code & Rekening - Modern Neon</title>
+    <title>QR Code & Rekening - Modern Neon</title>
     <style>
         :root {
             --bg-dark: #0b0f19;
@@ -96,23 +96,9 @@
         }
 
         .driver-name {
-            font-size: 1.05rem;
+            font-size: 1.15rem;
             font-weight: 700;
             letter-spacing: 0.3px;
-        }
-
-        .service-type {
-            font-size: 0.72rem;
-            color: var(--neon-green);
-            background: rgba(0, 255, 136, 0.1);
-            border: 1px solid rgba(0, 255, 136, 0.3);
-            display: inline-block;
-            padding: 2px 10px;
-            border-radius: 20px;
-            margin-top: 4px;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
         }
 
         /* KONTEN UTAMA */
@@ -187,7 +173,7 @@
             box-shadow: 0 0 10px rgba(225, 29, 72, 0.5);
         }
 
-        /* PERBAIKAN FORM KOTAK QR CODE */
+        /* KOTAK QR CODE */
         .qr-wrapper {
             background: #ffffff;
             padding: 6px;
@@ -395,7 +381,6 @@
                 <div class="driver-avatar">MA</div>
                 <div class="driver-text">
                     <div class="driver-name">Muhammad Alia</div>
-                    <div class="service-type">Grab Driver Partner</div>
                 </div>
             </div>
         </div>
@@ -563,7 +548,7 @@
         }
 
         async function shareCard() {
-            const shareText = `Pembayaran Grab Driver Muhammad Alia:\n\n` +
+            const shareText = `Pembayaran Muhammad Alia:\n\n` +
                               `• SeaBank: 901213088280\n` +
                               `• CIMB Niaga: 704992338000\n` +
                               `• OVO: 085141347197\n` +
@@ -574,7 +559,7 @@
             try {
                 if (navigator.share) {
                     await navigator.share({
-                        title: 'Pembayaran Grab Driver',
+                        title: 'Pembayaran Digital',
                         text: shareText
                     });
                 } else {
